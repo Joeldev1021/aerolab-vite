@@ -1,4 +1,5 @@
 import "./App.css";
+import "@fontsource/source-sans-pro/400.css";
 import Home from "./pages/Home";
 
 function App () {
