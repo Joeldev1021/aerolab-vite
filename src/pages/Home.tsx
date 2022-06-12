@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useContext, useEffect, useState } from "react";
+import api from "../api";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ListProducts from "../components/ListProducts";
@@ -8,15 +10,8 @@ const Home = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
 
   useEffect(() => {
-    fetch("https://coding-challenge-api.aerolab.co/products?limit=16&offset=0", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: import.meta.env.VITE_TOKEN
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    api.load()
+      .then(res => setProducts(res));
   }, []);
 
   return (
