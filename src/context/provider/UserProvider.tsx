@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import { useEffect, useState } from "react";
+import api from "../../api";
 import { User } from "../../types";
 import { UserContext } from "../UserContext";
 
@@ -16,15 +17,8 @@ export const UserProvider = ({ children }:ProviderProps) => {
   };
 
   useEffect(() => {
-    fetch("https://coding-challenge-api.aerolab.co/user/me", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: import.meta.env.VITE_TOKEN
-      }
-    })
-      .then(res => res.json())
-      .then(res => setUser(res));
+    api.loadUser()
+      .then(user => setUser(user));
   }, []);
 
   return (
