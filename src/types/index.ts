@@ -8,3 +8,12 @@ export interface Product {
         url: string;
     }
 }
+
+export interface User {
+    createDate: string
+    name: string
+    points: number
+    redeemHistory: []
+    __v: number
+    _id: string
+}
