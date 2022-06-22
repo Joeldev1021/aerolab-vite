@@ -10,7 +10,7 @@ const Home = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
 
   useEffect(() => {
-    api.load()
+    api.loadProducts()
       .then(res => setProducts(res));
   }, []);
 
