@@ -66,7 +66,7 @@ const ListProducts: React.FC<Props> = ({ products }) => {
       >
         <Flex flexDirection="row" alignItems="center">
           <Box p={2} borderRight="2px" borderColor="gray.200">
-            <Text>16 of 32 products</Text>
+            <Text>{nextPage === 0 ? "16" : "32"} of 32 products</Text>
           </Box>
           <Box p={2}>
             <Text>Short by : </Text>
@@ -85,16 +85,15 @@ const ListProducts: React.FC<Props> = ({ products }) => {
           ))}
         </Flex>
         <ButtonGroup className="btn-group">
-          <button
-            onClick={() => handleNextProducts("<")}
-          >
-            <Arrow dir="left" />
-          </button>
-          <button
-            onClick={() => handleNextProducts(">")}
-          >
-            <Arrow dir="right" />
-          </button>
+          {
+            nextPage === 0
+              ? <button onClick={() => handleNextProducts(">")}><Arrow dir="right" /></button>
+              : (<>
+               <button onClick={() => handleNextProducts("<")}><Arrow dir="left" /></button>
+               <button onClick={() => handleNextProducts(">")}><Arrow dir="right" /></button>
+               </>
+                )
+          }
         </ButtonGroup>
 
       </Flex>
