@@ -8,7 +8,7 @@ import {
   Box,
   Select
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 const categorys = [
   "Phones",
@@ -23,33 +23,32 @@ const categorys = [
 ];
 
 const SelectCategory = () => {
+  const [showSelect, setShowSelect] = useState<boolean>(false);
+
   return (
-    <Accordion
-      width={"150px"}
-      position="relative"
-      defaultIndex={[0]}
-      allowMultiple
-    >
+    <Accordion width={"150px"} position="relative" allowToggle>
       <AccordionItem>
         <h2>
-          <AccordionButton>
+          <AccordionButton
+           onClick={() => setShowSelect(!showSelect)}
+          >
             <Box flex="1" textAlign="left">
               Category
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
-        <Box
+        {/* <Box
           position="absolute"
           zIndex="200"
-          overflowY="hidden"
-          height="300px"
-          background="red"
-        >
+          background="white"
+          height="250px"
+            > */}
+        <div className={showSelect ? "select-group show" : "select-group" }>
           {categorys.map((c) => (
             <AccordionPanel key={c}>{c}</AccordionPanel>
           ))}
-        </Box>
+        </div>
       </AccordionItem>
     </Accordion>
   );
