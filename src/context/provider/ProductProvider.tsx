@@ -1,24 +1,37 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import api from "../../api";
-import { Product } from "../../types";
+import { Product, ProductState } from "../../types";
 import { ProductContext } from "../ProductContext";
+import { productReducer } from "../reducer/ReducerProduct";
 
 interface ProviderProps {
     children:JSX.Element | JSX.Element[]
 };
 
+export const initialStateProduct: ProductState = {
+  products: [],
+  productsFilter: []
+};
+
 export const ProductProvider = ({ children }:ProviderProps) => {
-  const [products, setProducts] = useState<Product[]| []>([]);
+  const [state, dispatch] = useReducer(productReducer, initialStateProduct);
+
+  const getAllProduct = async () => {
+    const products = await api.loadProducts();
+    dispatch({
+      type: "GET_PRODUCTS",
+      payload: products
+    });
+  };
 
   useEffect(() => {
-    api.loadProducts()
-      .then(products => setProducts(products));
+    getAllProduct();
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products }}>
+    <ProductContext.Provider value={{ state }}>
         {children}
     </ProductContext.Provider>
   );
