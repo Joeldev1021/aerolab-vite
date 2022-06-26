@@ -17,3 +17,8 @@ export interface User {
     __v: number
     _id: string
 }
+
+export interface ProductState {
+    products: Product[]
+    productsFilter: Product[]
+}
