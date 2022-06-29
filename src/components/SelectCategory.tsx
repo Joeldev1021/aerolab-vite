@@ -11,6 +11,7 @@ import {
 import React, { useState } from "react";
 
 const categorys = [
+  "All Products",
   "Phones",
   "Gaming",
   "Laptops",
@@ -22,31 +23,30 @@ const categorys = [
   "Smart Home"
 ];
 
-const SelectCategory = () => {
+interface Props {
+  handleFilterByCategory: (category: string) =>void
+}
+
+const SelectCategory = ({ handleFilterByCategory }:Props) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
 
   return (
-    <Accordion width={"150px"} position="relative" allowToggle>
+    <Accordion marginLeft="2" width={"150px"} position="relative" allowToggle>
       <AccordionItem>
         <h2>
           <AccordionButton
            onClick={() => setShowSelect(!showSelect)}
           >
             <Box flex="1" textAlign="left">
-              Category
+              {categorys[0]}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
-        {/* <Box
-          position="absolute"
-          zIndex="200"
-          background="white"
-          height="250px"
-            > */}
+
         <div className={showSelect ? "select-group show" : "select-group" }>
           {categorys.map((c) => (
-            <AccordionPanel key={c}>{c}</AccordionPanel>
+            <AccordionPanel _hover={{ background: "gray.100" }} key={c} onClick={() => handleFilterByCategory(c)}>{c}</AccordionPanel>
           ))}
         </div>
       </AccordionItem>
