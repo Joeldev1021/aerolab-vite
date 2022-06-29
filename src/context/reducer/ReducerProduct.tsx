@@ -9,9 +9,26 @@ export const productReducer = (state:ProductState, action:ProductAction) => {
         products: action.payload,
         productsFilter: action.payload
       };
-    case "HIGHEST_PRICES":
+    case "FILTER_CATEGORY":
       return {
-        ...state
+        ...state,
+        productsFilter: action.payload.category === "All Products" ? [...state.products] : [...state.products].filter(product => product.category === action.payload.category)
+      };
+
+    case "HIGHEST_PRICE":
+      return {
+        ...state,
+        productsFilter: [...state.products].sort((a, b) => a.cost - b.cost)
+      };
+    case "LOWEST_PRICE":
+      return {
+        ...state,
+        productsFilter: [...state.products].sort((a, b) => b.cost - a.cost)
+      };
+    case "MOST_RECENT":
+      return {
+        ...state,
+        productsFilter: [...state.products]
       };
     default :
       return state;
