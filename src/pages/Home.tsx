@@ -7,17 +7,10 @@ import ListProducts from "../components/ListProducts";
 import { Product } from "../types";
 
 const Home = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
-
-  useEffect(() => {
-    api.loadProducts()
-      .then(res => setProducts(res));
-  }, []);
-
   return (
     <div>
       <Header />
-      {products && <ListProducts products={products} />}
+       <ListProducts />
       <Footer/>
     </div>
   );
