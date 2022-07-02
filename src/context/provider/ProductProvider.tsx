@@ -26,12 +26,20 @@ export const ProductProvider = ({ children }:ProviderProps) => {
     });
   };
 
+  const handleFilterProducts = (n:any) => {
+    dispatch({ type: n });
+  };
+
+  const handleFilterByCategory = (category:string) => {
+    dispatch({ type: "FILTER_CATEGORY", payload: { category } });
+  };
+
   useEffect(() => {
     getAllProduct();
   }, []);
 
   return (
-    <ProductContext.Provider value={{ state }}>
+    <ProductContext.Provider value={{ state, handleFilterProducts, handleFilterByCategory }}>
         {children}
     </ProductContext.Provider>
   );
