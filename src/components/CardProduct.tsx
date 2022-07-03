@@ -1,13 +1,26 @@
-import { Box, Button, GridItem, Image, Img, Text } from "@chakra-ui/react";
+import { Box, Button, GridItem, Image, Img, Text, useToast } from "@chakra-ui/react";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Product } from "../types";
+import { AlertRedeem } from "./AlertRedeem";
 
 interface Props {
   product: Product;
 }
 const CardProduct = ({ product }: Props) => {
   const { user } = useContext(UserContext);
+  const toast = useToast();
+
+  const handleClick = (product:Product) => {
+    console.log(product);
+    toast({
+      duration: 2000,
+      position: "bottom-left",
+      render: () => (
+        <AlertRedeem product={product}/>
+      )
+    });
+  };
 
   return (
     <GridItem className="grid-item" position="relative" margin="auto" p="1" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
@@ -23,10 +36,10 @@ const CardProduct = ({ product }: Props) => {
             <Text textAlign="left" color="black">{product.category}</Text>
         </Box>
       </Box>
-      <Box className="content">
+      <Box className={user.points > product.cost ? "content" : "content-none"}>
         <Box width="90%" className="content-info">
           <Text display="flex" alignItems="center" padding={0} justifyContent="center" fontSize={35}>{product.cost} <Img src="./assets/coin.svg" paddingTop="5px" /></Text>
-          <Button background="white" borderRadius={30} color="blackAlpha.700" width="95%">Redeem</Button>
+          <Button background="white" borderRadius={30} color="blackAlpha.700" width="95%" onClick={() => handleClick(product)}>Redeem</Button>
         </Box>
       </Box>
     </GridItem>
