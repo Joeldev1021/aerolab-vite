@@ -29,6 +29,12 @@ interface Props {
 
 const SelectCategory = ({ handleFilterByCategory }:Props) => {
   const [showSelect, setShowSelect] = useState<boolean>(false);
+  const [selectCategory, setSelectCategory] = useState<string>("All Products");
+
+  const handleClick = (category: string) => {
+    setSelectCategory(category);
+    handleFilterByCategory(category);
+  };
 
   return (
     <Accordion marginLeft="2" width={"150px"} position="relative" allowToggle>
@@ -38,7 +44,7 @@ const SelectCategory = ({ handleFilterByCategory }:Props) => {
            onClick={() => setShowSelect(!showSelect)}
           >
             <Box flex="1" textAlign="left">
-              {categorys[0]}
+              {selectCategory}
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -46,7 +52,7 @@ const SelectCategory = ({ handleFilterByCategory }:Props) => {
 
         <div className={showSelect ? "select-group show" : "select-group" }>
           {categorys.map((c) => (
-            <AccordionPanel _hover={{ background: "gray.100" }} key={c} onClick={() => handleFilterByCategory(c)}>{c}</AccordionPanel>
+            <AccordionPanel _hover={{ background: "gray.100" }} key={c} onClick={() => handleClick(c)}>{c}</AccordionPanel>
           ))}
         </div>
       </AccordionItem>
