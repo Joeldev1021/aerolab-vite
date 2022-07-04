@@ -1,28 +1,33 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import api from "../../api";
-import { User } from "../../types";
+import { User, UserState } from "../../types";
+import { ReducerUser } from "../reducer/ReducerUser";
 import { UserContext } from "../UserContext";
 
 interface ProviderProps {
     children:JSX.Element | JSX.Element[]
 };
 
-export const UserProvider = ({ children }:ProviderProps) => {
-  const [user, setUser] = useState<User>({} as User);
+export const UserInitial:UserState = {
+  user: {} as User
+};
 
-  const addCoint = (amount: number) => {
-    setUser({ ...user, points: user.points + amount });
+export const UserProvider = ({ children }:ProviderProps) => {
+  const [state, dispatch] = useReducer(ReducerUser, UserInitial);
+
+  const addCoins = () => {
+
   };
 
   useEffect(() => {
     api.loadUser()
-      .then(user => setUser(user));
+      .then((user:User) => dispatch({ type: "LOAD_USER", payload: user }));
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, addCoint }}>
+    <UserContext.Provider value={{ user: state.user, addCoins }}>
         {children}
     </UserContext.Provider>
   );
