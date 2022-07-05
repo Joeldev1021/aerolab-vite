@@ -7,14 +7,14 @@ import {
   Button,
   Box
 } from "@chakra-ui/react";
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import { Product } from "../types";
 import ButtonGroupPage from "./ButtonGroup";
 import CardProduct from "./CardProduct";
 import SelectCategory from "./SelectCategory";
 
-enum FILTER {
+export enum FILTER {
   mostRecent = "Most recent",
   highestPrice = "Highest price",
   lowestPrice = "Lowest price",
@@ -25,12 +25,17 @@ const FilterOptions: FILTER[] = [
   FILTER.highestPrice,
   FILTER.lowestPrice
 ];
+
 const ListProducts: React.FC = () => {
   const [filter, setFilter] = useState<FILTER>(FILTER.mostRecent);
   const [nextPage, setNextPage] = useState(0);
-  const [filterByCategory, setFilterByCategory] = useState("all products");
-  const { state } = useContext(ProductContext);
-  /* A hook that is used to memoize the value of the function. */
+  const { state, handleFilterProducts, handleFilterByCategory } = useContext(ProductContext);
+
+  const handleFilter = (n:FILTER) => {
+    setFilter(n);
+    handleFilterProducts(n.toLocaleUpperCase().split(" ").join("_"));
+  };
+
   return (
     <div>
       <Flex
@@ -53,15 +58,15 @@ const ListProducts: React.FC = () => {
               borderRadius="50"
               marginX={2}
               key={filt}
-              onClick={() => setFilter(filt)}
+              onClick={() => handleFilter(filt)}
             >
               {filt}
             </Button>
           ))}
           <Text>Filter by :</Text>
-          <SelectCategory setFilterByCategory={setFilterByCategory} />
+          <SelectCategory handleFilterByCategory={handleFilterByCategory} />
         </Flex>
-       <ButtonGroupPage nextPage={nextPage} setNextPage={setNextPage} />
+       <ButtonGroupPage nextPage={nextPage} length={state.productsFilter.length} setNextPage={setNextPage} />
       </Flex>
       <Container maxW="1200px" color="white">
         <Grid templateColumns="repeat(4, 1fr)" gap={6}>
@@ -87,18 +92,3 @@ const ListProducts: React.FC = () => {
 };
 
 export default ListProducts;
-
-/*  const filterProducts = useMemo(() => {
-    switch (filter) {
-      case FILTER.highestPrice:
-        return [...products].sort((a, b) => b.cost - a.cost);
-
-      case FILTER.lowestPrice:
-        return [...products].sort((a, b) => a.cost - b.cost);
-
-      case FILTER.mostRecent:
-      default: {
-        return products;
-      }
-    }
-  }, [products, filter]); */
