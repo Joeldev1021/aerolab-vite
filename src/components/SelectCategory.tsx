@@ -52,7 +52,7 @@ const SelectCategory = ({ handleFilterByCategory }:Props) => {
 
         <div className={showSelect ? "select-group show" : "select-group" }>
           {categorys.map((c) => (
-            <AccordionPanel _hover={{ background: "gray.100" }} key={c} onClick={() => handleClick(c)}>{c}</AccordionPanel>
+            <AccordionPanel _hover={{ background: "gray.100", cursor: "pointer" }} key={c} onClick={() => handleClick(c)}>{c}</AccordionPanel>
           ))}
         </div>
       </AccordionItem>
