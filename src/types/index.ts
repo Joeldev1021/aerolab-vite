@@ -22,3 +22,8 @@ export interface ProductState {
     products: Product[]
     productsFilter: Product[]
 }
+
+export interface UserState {
+    user : User
+    cart?: Product[]
+}
