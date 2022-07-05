@@ -8,6 +8,21 @@ export function ReducerUser (state:UserState, action: UserAction) {
         ...state,
         user: action.payload
       };
+    case "ADD_COINS":
+      return {
+        ...state,
+        user: {
+          ...state.user, points: state.user.points + action.payload
+        }
+      };
+    case "DECREMENT_COINS":
+      return {
+        ...state,
+        user: {
+          ...state.user, points: state.user.points - action.payload.cost
+        }
+
+      };
     default:
       return state;
   }
