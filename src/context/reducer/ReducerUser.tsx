@@ -6,14 +6,26 @@ export function ReducerUser (state:UserState, action: UserAction) {
     case "LOAD_USER":
       return {
         ...state,
-        user: action.payload
+        loading: true
       };
-    case "ADD_COINS":
+    case "LOAD_USER_SUCCESS":
+      return {
+        ...state,
+        user: action.payload,
+        loading: false
+      };
+    case "LOAD_ADD_POINTS" :
+      return {
+        ...state,
+        loading: true
+      };
+    case "LOAD_ADD_POINTS_SUCCESS":
       return {
         ...state,
         user: {
           ...state.user, points: state.user.points + action.payload
-        }
+        },
+        loading: false
       };
     case "DECREMENT_COINS":
       return {
