@@ -3,26 +3,21 @@ const HEADER = {
   Accept: "application/json",
   Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`
 };
+
 const URL_API = "https://coding-challenge-api.aerolab.co";
 
 const api = {
   loadProducts: async () => {
-    const res = await fetch("https://coding-challenge-api.aerolab.co/products?limit=16&offset=0", {
+    const res = await fetch(URL_API, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: import.meta.env.VITE_TOKEN
-      }
+      headers: HEADER
     });
     return res.json();
   },
   loadUser: async () => {
-    const user = await fetch("https://coding-challenge-api.aerolab.co/user/me", {
+    const user = await fetch(`${URL_API}/user/me`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: import.meta.env.VITE_TOKEN
-      }
+      headers: HEADER
     });
     return user.json();
   },
