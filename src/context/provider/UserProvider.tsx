@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import { useEffect, useReducer } from "react";
 import api from "../../api";
-import { User, UserState } from "../../types";
+import { Product, User, UserState } from "../../types";
 import { ReducerUser } from "../reducer/ReducerUser";
 import { UserContext } from "../UserContext";
 
@@ -11,23 +9,41 @@ interface ProviderProps {
 };
 
 export const UserInitial:UserState = {
-  user: {} as User
+  user: {} as User,
+  loading: false
 };
 
 export const UserProvider = ({ children }:ProviderProps) => {
   const [state, dispatch] = useReducer(ReducerUser, UserInitial);
 
-  const addCoins = () => {
+  /**
+   * Load user from the API and dispatch the result to the reducer.
+   */
+  const loadUser = async () => {
+    dispatch({ type: "LOAD_USER" });
+    try {
+      const user:User = await api.loadUser();
+      if (user) dispatch({ type: "LOAD_USER_SUCCESS", payload: user });
+    } catch (error) {
+      dispatch({ type: "LOAD_USER_ERROR" });
+    }
+  };
 
+  const addPoints = async (points:number) => {
+    // const res = await api.postCoins(100);
+    dispatch({ type: "LOAD_ADD_POINTS_SUCCESS", payload: points });
+  };
+
+  const addRedeemHistory = (product:Product) => {
+    dispatch({ type: "LOAD_ADD_REDEEM_HISTORY_SUCCESS", payload: { product } });
   };
 
   useEffect(() => {
-    api.loadUser()
-      .then((user:User) => dispatch({ type: "LOAD_USER", payload: user }));
+    loadUser();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user: state.user, addCoins }}>
+    <UserContext.Provider value={{ user: state.user, addPoints, addRedeemHistory, loading: state.loading }}>
         {children}
     </UserContext.Provider>
   );
