@@ -27,6 +27,11 @@ export function ReducerUser (state:UserState, action: UserAction) {
         },
         loading: false
       };
+    case "LOAD_ADD_POINTS_ERROR":
+      return {
+        ...state,
+        loading: false
+      };
     case "LOAD_ADD_REDEEM_HISTORY_SUCCESS":
       return {
         ...state,
