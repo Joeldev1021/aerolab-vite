@@ -13,7 +13,7 @@ export interface User {
     createDate: string
     name: string
     points: number
-    redeemHistory: []
+    redeemHistory: Product[]
     __v: number
     _id: string
 }
@@ -25,5 +25,5 @@ export interface ProductState {
 
 export interface UserState {
     user : User
-    cart?: Product[]
+    loading: boolean
 }
