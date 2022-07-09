@@ -6,39 +6,52 @@ import {
   Heading,
   Img,
   Spacer,
-  Text
+  Text,
+  useToast
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import api from "../api";
-import { postPoints } from "../api/hello";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { AlertAddPoint } from "./AlertAddPoint";
 import Banner from "./Banner";
 
-const valueCoints = 100;
+const valuePoints = 100;
 
 const Header = () => {
   const { user, addPoints, loading } = useContext(UserContext);
+  const toast = useToast();
 
   const handleClick = async () => {
     /*  addCoins(valueCoints) */;
-    addPoints(100);
+    const res = await addPoints(valuePoints);
+    toast({
+      duration: 2000,
+      position: "bottom-left",
+      render: () => (
+        <AlertAddPoint message={res}/>
+      )
+    });
   };
 
   return (
-    <>
       <Flex position="fixed" shadow="base" zIndex="100" width="100%" bg="white" alignItems="center" padding={2} px={4} gap="2">
         <Box p="2" >
-          <Heading size="md"><Img src="./assets/logo.svg" alt="" /></Heading>
+          <Link to="/"><Heading size="md"><Img src="./assets/logo.svg" alt="" /></Heading></Link>
         </Box>
         <Spacer />
         <Box gap="5" display="flex" alignItems="center" >
           <Text fontSize="20">{user?.name}</Text>
-          <Text fontSize="20" _hover={{ color: "secondary" }}>Redeem History</Text>
-          <Button onClick={() => handleClick()} >{user?.points}<img src="./assets/coin.svg" alt="coin" /></Button>
+          <Link to="/historyRedeem"><Text fontSize="20" _hover={{ color: "secondary" }}>Redeem History</Text></Link>
+          <Button
+          width="35"
+          isLoading={loading}
+          loadingText='process'
+          spinnerPlacement='end'
+          onClick={() => handleClick()} >
+            { user?.points }<img src="./assets/coin.svg" alt="coin" />
+            </Button>
         </Box>
       </Flex>
-      <Banner />
-    </>
   );
 };
 
