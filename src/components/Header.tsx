@@ -6,14 +6,14 @@ import {
   Heading,
   Img,
   Spacer,
+  Spinner,
   Text,
   useToast
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { AlertAddPoint } from "./AlertAddPoint";
-import Banner from "./Banner";
 
 const valuePoints = 100;
 
@@ -43,12 +43,11 @@ const Header = () => {
           <Text fontSize="20">{user?.name}</Text>
           <Link to="/historyRedeem"><Text fontSize="20" _hover={{ color: "secondary" }}>Redeem History</Text></Link>
           <Button
-          width="35"
-          isLoading={loading}
-          loadingText='process'
-          spinnerPlacement='end'
+          display="flex"
+          justifyContent="space-between"
+           minWidth="100px"
           onClick={() => handleClick()} >
-            { user?.points }<img src="./assets/coin.svg" alt="coin" />
+            { loading ? <Spinner size='sm' color="secondary"/> : user.points}<img src="./assets/coin.svg" alt="coin" />
             </Button>
         </Box>
       </Flex>
