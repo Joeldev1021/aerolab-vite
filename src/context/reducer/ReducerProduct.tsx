@@ -18,12 +18,12 @@ export const productReducer = (state:ProductState, action:ProductAction) => {
     case "HIGHEST_PRICE":
       return {
         ...state,
-        productsFilter: [...state.productsFilter].sort((a, b) => a.cost - b.cost)
+        productsFilter: [...state.productsFilter].sort((a, b) => b.cost - a.cost)
       };
     case "LOWEST_PRICE":
       return {
         ...state,
-        productsFilter: [...state.productsFilter].sort((a, b) => b.cost - a.cost)
+        productsFilter: [...state.productsFilter].sort((a, b) => a.cost - b.cost)
       };
     case "MOST_RECENT":
       return {
