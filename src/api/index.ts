@@ -1,3 +1,4 @@
+
 const HEADER = {
   "Content-Type": "application/json",
   Accept: "application/json",
@@ -8,7 +9,7 @@ const URL_API = "https://coding-challenge-api.aerolab.co";
 
 const api = {
   loadProducts: async () => {
-    const res = await fetch(URL_API, {
+    const res = await fetch(`${URL_API}/products`, {
       method: "GET",
       headers: HEADER
     });
@@ -27,9 +28,20 @@ const api = {
       method: "POST",
       headers: HEADER,
       body: JSON.stringify({ amount })
-    }
-    );
-    return coins.json();
+    })
+      .then(res => res.json())
+      .catch(err => err.json());
+    return coins;
+  },
+  postRedeemHistory: async (productId:string) => {
+    const newProduct = await fetch(`${URL_API}/redeem`, {
+      method: "POST",
+      headers: HEADER,
+      body: JSON.stringify({ productId })
+    })
+      .then(res => res.json())
+      .catch(err => err.json());
+    return newProduct;
   }
 
   /* postRedeemHistory: async () => {
