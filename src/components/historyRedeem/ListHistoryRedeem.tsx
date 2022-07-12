@@ -5,16 +5,12 @@ import {
   Image,
   Text
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { Product } from "../../types";
 
 const ListHistoryRedeem = () => {
   const { user } = useContext(UserContext);
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <Box className="history-container" pt="70px">
