@@ -8,22 +8,22 @@ interface Props {
   product: Product;
 }
 const CardProduct = ({ product }: Props) => {
-  const { user } = useContext(UserContext);
+  const { user, addRedeemHistory } = useContext(UserContext);
   const toast = useToast();
 
-  const handleClick = (product:Product) => {
-    console.log(product);
+  const handleClick = async (product:Product) => {
+    const result = await addRedeemHistory(product);
     toast({
       duration: 2000,
       position: "bottom-left",
       render: () => (
-        <AlertRedeem product={product}/>
+        <AlertRedeem product={product} result={result}/>
       )
     });
   };
 
   return (
-    <GridItem className="grid-item" position="relative" margin="auto" p="1" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
+    <GridItem className="grid-item" bg="white" position="relative" margin="auto" p="1" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" >
       {user.points >= product.cost
         ? <Img position="absolute" top="3" right="3" src="./assets/buy-blue.svg"/>
         : <Text borderRadius={50} background="blackAlpha.600" display="flex" alignItems="center" padding={2} px="3" position="absolute" top="3" right="3" color="white">you need {product.cost} <Img src="./assets/coin.svg"/></Text> }
@@ -36,7 +36,8 @@ const CardProduct = ({ product }: Props) => {
             <Text textAlign="left" color="black">{product.category}</Text>
         </Box>
       </Box>
-      <Box className={user.points > product.cost ? "content" : "content-none"}>
+      <Box className={user.points >= product.cost ? "content" : "content-none"}>
+          <Img position="absolute" top="2.5" right="1.5" width="50px" src="../assets/buy-white.svg"/>
         <Box width="90%" className="content-info">
           <Text display="flex" alignItems="center" padding={0} justifyContent="center" fontSize={35}>{product.cost} <Img src="./assets/coin.svg" paddingTop="5px" /></Text>
           <Button background="white" borderRadius={30} color="blackAlpha.700" width="95%" onClick={() => handleClick(product)}>Redeem</Button>
