@@ -37,8 +37,7 @@ export function ReducerUser (state:UserState, action: UserAction) {
         ...state,
         user: {
           ...state.user,
-          points: state.user.points - action.payload.product.cost,
-          redeemHistory: [...state.user.redeemHistory, action.payload.product]
+          points: state.user.points - action.payload.product.cost
         },
         loading: false
       };
