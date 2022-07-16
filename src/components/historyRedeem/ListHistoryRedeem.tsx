@@ -1,26 +1,27 @@
 /* eslint-disable no-unused-vars */
 import {
-  Box,
-  Flex,
-  Image,
-  Text
+  Box, Flex, Image, Text
 } from "@chakra-ui/react";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { useContext, useEffect } from "react";
+import { HistoryRedeemContext } from "../../context/HistoryRedeemContext";
 import { Product } from "../../types";
 
 const ListHistoryRedeem = () => {
-  const { user } = useContext(UserContext);
+  const { historyRedeems, loadHistory } = useContext(HistoryRedeemContext);
+
+  useEffect(() => {
+    loadHistory();
+  }, []);
 
   return (
     <Box className="history-container" pt="70px">
-      {user.redeemHistory.length > 0 &&
-        user.redeemHistory.map((product: Product) => {
+     {historyRedeems.length > 0 &&
+        historyRedeems.map((product: Product) => {
           return (
             <Flex width="90%" bg="white" m="auto" borderRadius="md" my="1" border="1px" borderColor="gray.200" flexDir="row" alignItems="center" justifyContent="space-around" key={product.productId} >
               <Image width="70px" src={product.img.hdUrl} />
               <Text>{product.name}</Text>
-              <Text>{product.productId}</Text>{/* productId => response */}
+              <Text>{product.productId}</Text>
               <Text>{product.cost}</Text>
             </Flex>
           );

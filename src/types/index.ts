@@ -1,8 +1,10 @@
 export interface Product {
     name: string;
     _id: string;
+    productId?: string;
     category: string;
     cost: number;
+    createDate?: number;
     img: {
         hdUrl: string;
         url: string;
@@ -24,6 +26,12 @@ export interface ProductState {
 }
 
 export interface UserState {
-    user : User
+    user: User
     loading: boolean
+}
+
+export interface HistoryRedeemState {
+    historyRedeems: Product[]
+    isLoading:boolean
+    isError:boolean
 }
