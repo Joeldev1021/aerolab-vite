@@ -42,6 +42,14 @@ const api = {
       .then(res => res.json())
       .catch(err => err.json());
     return newProduct;
+  },
+
+  getRedeemHistory: async () => {
+    const restHistory = await fetch(`${URL_API}/user/history`, {
+      method: "GET",
+      headers: HEADER
+    });
+    return restHistory.json();
   }
 
   /* postRedeemHistory: async () => {
