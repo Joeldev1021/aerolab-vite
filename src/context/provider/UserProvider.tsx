@@ -29,12 +29,14 @@ export const UserProvider = ({ children }:ProviderProps) => {
   };
 
   const addPoints = async (points:number) => {
+    let res;
     dispatch({ type: "LOAD_ADD_POINTS" });
-    const res = await api.postCoins(points);
     // add points
     try {
-      if (res["new Points"]) {
-        dispatch({ type: "LOAD_ADD_POINTS_SUCCESS", payload: res["new Points"] });
+      res = await api.postCoins(points);
+      if (res["New Points"]) {
+        console.log(res["New Points"]);
+        dispatch({ type: "LOAD_ADD_POINTS_SUCCESS", payload: res["New Points"] });
       } else throw new Error("not add points");
     } catch (error) {
       // error add points
