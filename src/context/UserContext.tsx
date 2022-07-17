@@ -3,8 +3,8 @@ import { Product, User } from "../types";
 
 export type UserContextType = {
     user: User,
-    redeemHistory?: Product[]
-    addCoins: (amount: number) => void
+    loading: boolean
+    addPoints: (amount: number) => void
     addRedeemHistory:(product:Product) => void
 }
 
