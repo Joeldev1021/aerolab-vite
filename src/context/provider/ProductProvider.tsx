@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import api from "../../api";
-import { Product, ProductState } from "../../types";
+import { ProductState } from "../../types";
 import { ProductContext } from "../ProductContext";
 import { productReducer } from "../reducer/ReducerProduct";
 
@@ -26,8 +24,9 @@ export const ProductProvider = ({ children }:ProviderProps) => {
     });
   };
 
-  const handleFilterProducts = (n:any) => {
-    dispatch({ type: n });
+  const handleFilterProducts = (filter:any) => {
+    console.log(filter);
+    dispatch({ type: filter });
   };
 
   const handleFilterByCategory = (category:string) => {
