@@ -1,20 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { Box, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Img,
+  Text,
+  useMediaQuery
+} from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { HistoryRedeemContext } from "../../context/HistoryRedeemContext";
-import { optionDate, Product } from "../../types";
+import { Product } from "../../types";
+import GridHistoryRedeem from "./GridHistoryRedeem";
 
 const ListHistoryRedeem = () => {
   const { historyRedeems, loadHistory } = useContext(HistoryRedeemContext);
   const date = new Date();
-  const options: any = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric"
-  };
+
+  const [isLargeThat640] = useMediaQuery("(min-width: 640px)");
 
   useEffect(() => {
     loadHistory();
@@ -25,55 +26,29 @@ const ListHistoryRedeem = () => {
       {historyRedeems.length > 0 &&
         historyRedeems.map((product: Product, index: number) => {
           return (
-            <Grid
+            <Flex
+              flexDir="row"
+              justifyContent="space-around"
               _hover={{ transition: "all .3s ease-in", boxShadow: "lg" }}
               borderRadius="md"
               border="1px"
               borderColor="gray.200"
-              key="index"
               width="80%"
               m="auto"
               my="4"
               p="2"
-              templateColumns="repeat(5, 1fr)"
+              px="20px"
+              key={index}
             >
-              <GridItem w="100%" justifyContent="center">
-                <Image m="auto" width="70px" src={product.img.hdUrl} />
-              </GridItem>
-              <GridItem w="100%" textAlign="left">
-                <Text fontSize="18" color="gray.400">
-                  {product.category}
-                </Text>
-                <Text fontSize="18">{product.name}</Text>
-              </GridItem>
-              <GridItem w="100%" textAlign="left">
-                <Text fontSize="18" color="gray.400">
-                  Redeemed on
-                </Text>
-                <Text fontSize="18">
-                  {" "}
-                  {product.createDate &&
-                    new Date(product.createDate).toLocaleDateString(
-                      "en-US",
-                      options
-                    )}
-                </Text>
-              </GridItem>
-              <GridItem w="100%" textAlign="left">
-                <Text fontSize="18" color="gray.400">ID Transaction</Text>
-                <Text fontSize="18">{product.productId}</Text>
-              </GridItem>
-              <GridItem
-                w="100%"
-                display="flex"
-                alignItems="center"
-                justifyContent="end"
-                pr="10"
-              >
-                <Text fontSize="18" fontWeight="bold">{product.cost}</Text>
-                <Image src="./assets/coin.svg" />
-              </GridItem>
-            </Grid>
+              <Img width="70px" src={product.img.hdUrl} />
+
+              <GridHistoryRedeem product={product} />
+
+             <Box width="30px" bg="red" display="flex" justifyContent="space-between" flexDirection="row-reverse" alignItems="center" >
+                <Img src="./assets/coin.svg" />
+                <Text >{product.cost}</Text>
+              </Box>
+            </Flex>
           );
         })}
     </Box>
@@ -81,36 +56,3 @@ const ListHistoryRedeem = () => {
 };
 
 export default ListHistoryRedeem;
-/*   <Flex
-              key={index}
-              width="80%"
-              bg="white"
-              m="auto"
-
-              flexDir="row"
-              alignItems="center"
-              justifyContent="space-around"
-            >
-              <Box bg="red" textAlign="left">
-                <Text color="gray.400">{product.category}</Text>
-                <Text>{product.name}</Text>
-              </Box>
-              <Box textAlign="left">
-                <Text color="gray.400">Redeemed on</Text>
-                <Text> {product.createDate && new Date(product.createDate).toLocaleDateString("en-US", options)}</Text>
-              </Box>
-              <Box textAlign="left">
-                <Text color="gray.400">Transaction ID</Text>
-                <Text>{product.productId}</Text>
-              </Box>
-              <Box
-                textAlign="left"
-                bg="red"
-                display="flex"
-                alignItems="center"
-              >
-                <Text>{product.cost}</Text>
-                <Image src="./assets/coin.svg" />
-              </Box>
-            </Flex>
-*/
