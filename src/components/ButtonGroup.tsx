@@ -4,7 +4,7 @@ import Arrow from "./Arrow";
 
 interface Props {
   nextPage: number;
-  setNextPage: (value: number)=>void;
+  setNextPage: (value: number) => void;
   length: number;
 }
 
@@ -14,7 +14,7 @@ const ButtonGroupPage = ({ nextPage, setNextPage, length }: Props) => {
     if (length <= 16) setNextPage(0);
   }, [length]);
 
-  const handleNextPage = (dir:string) => {
+  const handleNextPage = (dir: string) => {
     if (length <= 16) {
       setNextPage(0);
     } else {
@@ -23,12 +23,12 @@ const ButtonGroupPage = ({ nextPage, setNextPage, length }: Props) => {
   };
   return (
     <ButtonGroup className="btn-group">
-          <button onClick={() => handleNextPage("left")}>
-            <Arrow dir="left" />
-          </button>
-          <button onClick={() => handleNextPage("right")}>
-            <Arrow dir="right" />
-          </button>
+      <button onClick={() => handleNextPage("left")}>
+        <Arrow dir="left" />
+      </button>
+      <button onClick={() => handleNextPage("right")}>
+        <Arrow dir="right" />
+      </button>
     </ButtonGroup>
   );
 };
