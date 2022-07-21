@@ -13,9 +13,9 @@ import GridHistoryRedeem from "./GridHistoryRedeem";
 
 const ListHistoryRedeem = () => {
   const { historyRedeems, loadHistory } = useContext(HistoryRedeemContext);
+  const [isLargeThat900] = useMediaQuery("(min-width: 900px)");
+  const [isLargeThat760] = useMediaQuery("(min-width: 760px)");
   const date = new Date();
-
-  const [isLargeThat640] = useMediaQuery("(min-width: 640px)");
 
   useEffect(() => {
     loadHistory();
@@ -28,25 +28,24 @@ const ListHistoryRedeem = () => {
           return (
             <Flex
               flexDir="row"
-              justifyContent="space-around"
+              position="relative"
+              justifyContent={isLargeThat760 ? "space-around" : "flex-start"}
               _hover={{ transition: "all .3s ease-in", boxShadow: "lg" }}
               borderRadius="md"
               border="1px"
+              alignItems="center"
               borderColor="gray.200"
-              width="80%"
+              width={isLargeThat900 ? "80%" : "90%"}
               m="auto"
               my="4"
               p="2"
-              px="20px"
               key={index}
             >
-              <Img width="70px" src={product.img.hdUrl} />
-
+              <Img mb="4" width="80px" height="60px" src={product.img.hdUrl} />
               <GridHistoryRedeem product={product} />
-
-             <Box width="30px" bg="red" display="flex" justifyContent="space-between" flexDirection="row-reverse" alignItems="center" >
+             <Box className="box-coins" width="70px" display="flex" justifyContent="flex-end" flexDirection="row" alignItems="center" >
+                <Text fontWeight="bold" >{product.cost}</Text>
                 <Img src="./assets/coin.svg" />
-                <Text >{product.cost}</Text>
               </Box>
             </Flex>
           );
