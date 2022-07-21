@@ -32,6 +32,11 @@ export function ReducerUser (state:UserState, action: UserAction) {
         ...state,
         loading: false
       };
+    case "LOAD_ADD_REDEEM_HISTORY":
+      return {
+        ...state,
+        loading: true
+      };
     case "LOAD_ADD_REDEEM_HISTORY_SUCCESS":
       return {
         ...state,
