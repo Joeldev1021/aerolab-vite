@@ -5,6 +5,7 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
         "standard"
     ],
     "parser": "@typescript-eslint/parser",
@@ -20,16 +21,10 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "semi": [
-            "error",
-            "always"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
-       "react/react-in-jsx-scope": "off",
-       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts" ,".tsx"] }],
-       "no-undef":"off"
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"] ,
+        "no-unused-vars": "warn",
+        "no-undef": "off"
+
     }
 }
