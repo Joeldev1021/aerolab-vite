@@ -1,6 +1,5 @@
 import {
   Button,
-  ButtonGroup,
   Popover,
   PopoverBody,
   PopoverCloseButton,
@@ -22,7 +21,7 @@ const ModalPoints = ({ points, loading, handlePoints }: Props) => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button fontWeight="light" fontSize="18" >
+        <Button fontWeight="bold" fontSize="18" >
           {loading ? <Spinner size="sm" color="secondary" /> : points}
           <img src="./assets/coin.svg" alt="coin" />
         </Button>
@@ -40,9 +39,9 @@ const ModalPoints = ({ points, loading, handlePoints }: Props) => {
           justifyContent='center'
           pb="4"
         >
-          <ButtonGroup size='sm'>
+          <PopoverCloseButton position="relative">
             <Button minWidth="150px" fontSize="18px" color="gray.500" py="3">Cancel</Button>
-          </ButtonGroup>
+          </PopoverCloseButton>
         </PopoverFooter>
       </PopoverContent>
     </Popover>
