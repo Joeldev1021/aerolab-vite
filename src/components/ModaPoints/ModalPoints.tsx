@@ -30,7 +30,7 @@ const ModalPoints = ({ points, loading, handlePoints }: Props) => {
         <PopoverCloseButton />
         <ModalHeader />
         <PopoverBody>
-          <ModalBodyPoints handlePoints={handlePoints}/>
+          <ModalBodyPoints loading={loading} handlePoints={handlePoints}/>
         </PopoverBody>
          <PopoverFooter
           border='0'

@@ -37,7 +37,7 @@ const SelectCategory = ({ handleFilterByCategory }:Props) => {
   };
 
   return (
-    <Accordion marginLeft="2" width={"150px"} position="relative" allowToggle>
+    <Accordion bg="white" marginLeft="2" width={"150px"} position="relative" allowToggle>
       <AccordionItem>
         <h2>
           <AccordionButton

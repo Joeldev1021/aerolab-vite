@@ -35,3 +35,12 @@ export interface HistoryRedeemState {
     isLoading:boolean
     isError:boolean
 }
+
+export interface optionDate {
+    year: string;
+    month: string;
+    day: string;
+    hour: string;
+    minute: string;
+    second: string;
+}

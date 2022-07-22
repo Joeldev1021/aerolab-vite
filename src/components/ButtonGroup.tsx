@@ -22,7 +22,7 @@ const ButtonGroupPage = ({ nextPage, setNextPage, length }: Props) => {
     }
   };
   return (
-    <ButtonGroup className="btn-group">
+    <ButtonGroup p="2" className="btn-group">
       <button onClick={() => handleNextPage("left")}>
         <Arrow dir="left" />
       </button>

@@ -3,6 +3,7 @@ import {
   Box,
   Flex,
   Img,
+  SlideFade,
   Text,
   useMediaQuery
 } from "@chakra-ui/react";
@@ -26,6 +27,7 @@ const ListHistoryRedeem = () => {
       {historyRedeems.length > 0 &&
         historyRedeems.map((product: Product, index: number) => {
           return (
+             <SlideFade in={true} key={index} offsetY={"-20px"}>
             <Flex
               flexDir="row"
               position="relative"
@@ -39,7 +41,6 @@ const ListHistoryRedeem = () => {
               m="auto"
               my="4"
               p="2"
-              key={index}
             >
               <Img mb="4" width="80px" height="60px" src={product.img.hdUrl} />
               <GridHistoryRedeem product={product} />
@@ -48,6 +49,7 @@ const ListHistoryRedeem = () => {
                 <Img src="./assets/coin.svg" />
               </Box>
             </Flex>
+          </SlideFade>
           );
         })}
     </Box>

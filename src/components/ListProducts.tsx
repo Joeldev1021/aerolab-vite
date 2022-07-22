@@ -5,9 +5,10 @@ import {
   Grid,
   Text,
   Button,
-  Box
+  Box,
+  useMediaQuery
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { ProductContext } from "../context/ProductContext";
 import { Product } from "../types";
 import ButtonGroupPage from "./ButtonGroup";
@@ -30,6 +31,8 @@ const ListProducts: React.FC = () => {
   const [filter, setFilter] = useState<FILTER>(FILTER.mostRecent);
   const [nextPage, setNextPage] = useState(0);
   const { state, handleFilterProducts, handleFilterByCategory } = useContext(ProductContext);
+  const [isLargeThat760] = useMediaQuery("(min-width: 930px)");
+  const [isLargeThat500] = useMediaQuery("(min-width: 640px)");
 
   const handleFilter = (n:FILTER) => {
     setFilter(n);
@@ -39,18 +42,19 @@ const ListProducts: React.FC = () => {
   return (
     <div>
       <Flex
-        flexDirection="row"
+        flexDirection={isLargeThat760 ? "row" : "column"}
         justifyContent="space-around"
-        py="5"
+        py={isLargeThat760 ? "5" : "0"}
         alignItems="center"
       >
-        <Flex flexDirection="row" alignItems="center">
+        <Flex flexDirection={isLargeThat760 ? "row" : "column"} alignItems="center">
           <Box p={2} borderRight="2px" borderColor="gray.200">
-            <Text>{nextPage === 0 ? "16" : "32"} of 32 products</Text>
+            <Text>{nextPage === 0 ? "16" : "17"} of 32 products</Text>
           </Box>
-          <Box p={2}>
+          <Box display={isLargeThat500 ? "block" : "none"} p={2}>
             <Text>Short by : </Text>
           </Box>
+          <Box>
           {FilterOptions.map((filt: FILTER) => (
             <Button
               background={filt === filter ? "secondary" : ""}
@@ -63,13 +67,14 @@ const ListProducts: React.FC = () => {
               {filt}
             </Button>
           ))}
-          <Text>Filter by :</Text>
+          </Box>
+         <Text display={isLargeThat500 ? "block" : "none"}>Filter by :</Text>
           <SelectCategory handleFilterByCategory={handleFilterByCategory} />
         </Flex>
        <ButtonGroupPage nextPage={nextPage} length={state.productsFilter.length} setNextPage={setNextPage} />
       </Flex>
       <Container maxW="1200px" color="white">
-        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+        <Grid m="auto" templateColumns="repeat(auto-fill, minmax(220px, 1fr))" gap={6}>
           {state.productsFilter.map((product: Product, index: number) => {
             if (nextPage === 0) {
               return (

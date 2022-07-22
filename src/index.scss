@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -11,6 +11,7 @@ code {
 
 .btn-group {
   button {
+    background: white;
     border: none;
     outline: none;
     color: #c3c3c3;
@@ -21,11 +22,16 @@ code {
       background: none;
       color: #0dd4fa;
     }
+   @media  (max-width: 768px) {
+     svg {
+      width:40px;
+     }
+   } 
   }
 }
 
 .grid-item {
-  .content {
+  .content-hover {
     transition: all 0.3s ease-in-out;
     opacity:  0;
    div {
@@ -36,9 +42,12 @@ code {
       
     }
   }
+  .content-hover-none {
+    display: none;
+  }
 
   &:hover {
-    .content {
+    .content-hover {
       position: absolute;
       top: 0;
       left: 0;
@@ -58,10 +67,23 @@ code {
   overflow-y: scroll;
   z-index: 100;
   transition: all 0.3s ease-in-out;
-  
+   
 }
 
 .show {
  height:250px;
  border: 1px solid rgb(226, 224, 224);
 }
+
+.history-container {
+ min-height:90vh;
+}
+
+.box-coins {
+  position:relative;
+   @media (max-width: 765px) {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+   }
+  }

@@ -1,8 +1,8 @@
-import { Grid, GridItem, Text } from "@chakra-ui/react";
-import React from "react";
+import { Grid, GridItem, Text, useMediaQuery } from "@chakra-ui/react";
 import { Product } from "../../types";
 
 const GridHistoryRedeem = ({ product }:{product: Product}) => {
+  const [isLargeThat765] = useMediaQuery("(min-width: 765px)");
   const options: any = {
     year: "numeric",
     month: "long",
@@ -11,30 +11,30 @@ const GridHistoryRedeem = ({ product }:{product: Product}) => {
     minute: "numeric",
     second: "numeric"
   };
-
+  // templateColumns="repeat(3, 1fr)"
   return (
-    <Grid gap="4" templateColumns="repeat(3, 1fr)">
+    <Grid pl={isLargeThat765 ? "0" : "10"} gap={isLargeThat765 ? "4" : "0"} templateColumns={isLargeThat765 ? "repeat(3, 1fr)" : "1fr" }>
       <GridItem w="100%" justifyContent="center" textAlign="left">
-        <Text fontSize="18" color="gray.400">
+        <Text fontSize={isLargeThat765 ? "18" : "12"} color="grayCustom">
           {product.category}
         </Text>
-        <Text fontSize="18">{product.name}</Text>
+        <Text fontSize={isLargeThat765 ? "18" : "16"} >{product.name}</Text>
       </GridItem>
 
       <GridItem w="100%" justifyContent="center" textAlign="left">
-        <Text fontSize="18" color="gray.400">
+        <Text fontSize={isLargeThat765 ? "18" : "12"} color="grayCustom">
           Redeemed
         </Text>
-        <Text fontSize="18">
+        <Text fontSize={isLargeThat765 ? "18" : "16"}>
           {product.createDate &&
             new Date(product.createDate).toLocaleDateString("en-US", options)}
         </Text>
       </GridItem>
       <GridItem w="100%" justifyContent="center" textAlign="left">
-        <Text fontSize="18" color="gray.400">
+        <Text fontSize={isLargeThat765 ? "18" : "12"} color="grayCustom">
           Transaction ID
         </Text>
-        <Text fontSize="18">{product.productId}</Text>
+        <Text fontSize={isLargeThat765 ? "18" : "16"}>{product.productId}</Text>
       </GridItem>
     </Grid>
   );
