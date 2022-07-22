@@ -14,7 +14,7 @@ import ModalHeader from "./ModalHeader";
 interface Props {
   points: number;
   loading: boolean;
-  handlePoints:(points:number) => void;
+  handlePoints: (points: number) => void;
 }
 
 const ModalPoints = ({ points, loading, handlePoints }: Props) => {
@@ -30,9 +30,9 @@ const ModalPoints = ({ points, loading, handlePoints }: Props) => {
         <PopoverCloseButton />
         <ModalHeader />
         <PopoverBody>
-          <ModalBodyPoints loading={loading} handlePoints={handlePoints}/>
+          <ModalBodyPoints loading={loading} handlePoints={handlePoints} />
         </PopoverBody>
-         <PopoverFooter
+        <PopoverFooter
           border='0'
           display='flex'
           alignItems='center'
