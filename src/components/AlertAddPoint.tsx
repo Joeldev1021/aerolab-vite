@@ -21,7 +21,7 @@ export const AlertAddPoint = ({ message, points }: Props) => {
 			<Box>
 				<Text fontWeight='bold'>{message.error ? '¡Error!' : '¡Success!'}</Text>
 				<Text>
-					{message.error ? message.error : `You remeded ${points} poins`}
+					{message.error ? message.error : `You added ${points} poins`}
 				</Text>
 			</Box>
 		</Box>
